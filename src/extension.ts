@@ -34,6 +34,16 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
   }
+
+  let disposable = vscode.commands.registerCommand(
+    "composelist.click",
+    async (filePath) => {
+      let uri = vscode.Uri.file(filePath);
+      await vscode.commands.executeCommand("vscode.open", uri);
+    }
+  );
+
+  context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated

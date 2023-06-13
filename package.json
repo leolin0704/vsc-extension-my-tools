@@ -15,7 +15,7 @@
     "commands": [
       {
         "command": "composelist.refreshEntry",
-        "title": "Refresh"
+        "title": "ComposeRefresh"
       }
     ],
     "views": {

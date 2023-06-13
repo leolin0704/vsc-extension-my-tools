@@ -23,7 +23,9 @@ export class ComposelistProvider
 
   async getChildren(element?: vscode.TreeItem): Promise<vscode.TreeItem[]> {
     if (!this.workspaceRoot) {
-      vscode.window.showInformationMessage("No dependency in empty workspace");
+      vscode.window.showInformationMessage(
+        "No compose list in empty workspace"
+      );
       return Promise.resolve([]);
     }
 
@@ -31,9 +33,15 @@ export class ComposelistProvider
       const jsfiles = await glob(`${this.workspaceRoot}/**/*compose.json`, {
         ignore: "node_modules/**",
       });
-      console.log(jsfiles);
-      console.log("------------");
-      return jsfiles.map((file) => new vscode.TreeItem(file));
+      return jsfiles.map((file) => {
+        const item = new vscode.TreeItem(file);
+        item.command = {
+          command: "composelist.click",
+          title: "ComposeClick",
+          arguments: [file],
+        };
+        return item;
+      });
     }
 
     return [];
